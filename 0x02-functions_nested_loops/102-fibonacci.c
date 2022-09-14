@@ -20,7 +20,7 @@ int main(void)
 		c = n1;
 		n1 = n2;
 		n2 += c;
-		if (i < 48)
+		if (i < 47)
 			printf(", ");
 		else
 			printf("\n");
