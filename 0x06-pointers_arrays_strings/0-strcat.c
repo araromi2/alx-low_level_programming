@@ -1,16 +1,16 @@
 #include "main.h"
 
 /**
- * _strlen - returns the length of a string
- * @s: string
+ * str_len - Find the length of a string
+ * @string: the string
  *
  * Return: the length of the string.
  */
-int _strlen(char *s)
+int str_len(char *string)
 {
         int i = 0;
 
-        while (s[i] != '\0')
+        while (string[i] != '\0')
         {
                 i++;
         }
@@ -28,7 +28,7 @@ char *_strcat(char *dest, char *src)
 {
 	int i, len;
 
-	len = _strlen(dest);
+	len = str_len(dest);
 	for (i = 0; src[i] != '\0'; i++)
 	{
 		dest[len + i] = src[i];
