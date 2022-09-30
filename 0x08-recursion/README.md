@@ -17,7 +17,9 @@
 | `5-sqrt_recursion.c`      | A function that returns the natural square root of a number.                                                          | [sqrt recursion](https://github.com/araromi2/alx-low_level_programming/blob/master/0x08-recursion/5-sqrt_recursion.c)               |
 | `6-is_prime_number.c`     | A function that returns `1` if the input integer is a prime number, otherwise return `0`.                             | [prime number recursion](https://github.com/araromi2/alx-low_level_programming/blob/master/0x08-recursion/6-is_prime_number.c)      |
 | `100-is_palindrome.c`     | A function that returns `1` if a string is a palindrome and `0` if not                                                | [palindrome](https://github.com/araromi2/alx-low_level_programming/blob/master/0x08-recursion/100-is_palindrome.c)                  |
-| `101-wildcmp.c`           | A function that compares two strings and returns `1` if the strings can be considered identical, otherwise return `0` | [wildcmp](https://github.com/araromi2/alx-low_level_programming/blob/master/0x08-recursion/101-wildcmp.c                            |
+| `101-wildcmp.c`           | A function that compares two strings and returns
+`1` if the strings can be considered identical, otherwise return `0` |
+[wildcmp](https://github.com/araromi2/alx-low_level_programming/blob/master/0x08-recursion/101-wildcmp.c)                             |
 ## Challenges
 ## Comment
 
