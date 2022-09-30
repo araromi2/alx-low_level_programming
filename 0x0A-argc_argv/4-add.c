@@ -12,7 +12,7 @@
  */
 int main(int argc, char *argv[])
 {
-	int i, add = 0;
+	int i, j, add = 0;
 
 	if (argc == 0)
 	{
@@ -21,10 +21,13 @@ int main(int argc, char *argv[])
 	}
 	for (i = 1; i < argc; i++)
 	{
-		if (!isdigit(**(argv + i)))
+		for (j = 0; argv[i][j] != '\0'; j++)
 		{
-			printf("Error\n");
-			return (1);
+			if (!isdigit(argv[i][j]))
+			{
+				printf("Error\n");
+				return (1);
+			}
 		}
 		add += atoi(argv[i]);
 	}
