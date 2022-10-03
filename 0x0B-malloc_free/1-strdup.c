@@ -1,6 +1,7 @@
 #include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int _strlen(char *str);
 /**
@@ -15,9 +16,11 @@ char *_strdup(char *str)
 	int i, len;
 	char *copy_str;
 
-	len = _strlen(str);
-	copy_str = malloc(sizeof(char) * len);
-	if (str == NULL || copy_str == NULL)
+	if (str == NULL)
+		return (NULL);
+	len = strlen(str);
+	copy_str = malloc(sizeof(char) * (len + 1));
+	if (copy_str == NULL)
 		return (NULL);
 	for (i = 0; i < len; i++)
 	{
@@ -35,6 +38,8 @@ char *_strdup(char *str)
 int _strlen(char *str)
 {
 	if (*str == '\0')
+		return (0);
+	if (str == NULL)
 		return (0);
 	return (1 + _strlen(str + 1));
 }
