@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-int _strlen(char *str);
 /**
  * _strdup - a function that returns a pointer to a newly allocated space in
  * memory
@@ -27,20 +26,5 @@ char *_strdup(char *str)
 		copy_str[i] = str[i];
 	}
 	return (copy_str);
-}
-
-/**
- * _strlen - find the length of a string
- * @str: the string
- *
- * Return: the length of the string
- */
-int _strlen(char *str)
-{
-	if (*str == '\0')
-		return (0);
-	if (str == NULL)
-		return (0);
-	return (1 + _strlen(str + 1));
 }
 
