@@ -3,7 +3,7 @@
 
 /**
  * count_word - helper function to count the number of words in a string
- * @s: string
+ * @str: string
  *
  * Return: count of words in the string.
  */
@@ -13,7 +13,8 @@ int count_word(char *str)
 
 	for (i = 1; *(str + i) != '\0'; i++)
 	{
-		if ((*(str + i) == ' ' || *(str + i) == '\t' || *(str + i) == '\n') && (*(str + i - 1) != ' '))
+		if ((*(str + i) == ' ' || *(str + i) == '\t' ||
+		*(str + i) == '\n') && (*(str + i - 1) != ' '))
 		{
 			count++;
 		}
