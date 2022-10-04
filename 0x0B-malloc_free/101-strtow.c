@@ -3,29 +3,22 @@
 
 /**
  * count_word - helper function to count the number of words in a string
- * @s: string to evaluate
+ * @s: string
  *
- * Return: number of words
+ * Return: count of words in the string.
  */
-int count_word(char *s)
+int count_word(char *str)
 {
-	int flag, c, w;
+	int i, count = 0;
 
-	flag = 0;
-	w = 0;
-
-	for (c = 0; s[c] != '\0'; c++)
+	for (i = 1; *(str + i) != '\0'; i++)
 	{
-		if (s[c] == ' ')
-			flag = 0;
-		else if (flag == 0)
+		if ((*(str + i) == ' ' || *(str + i) == '\t' || *(str + i) == '\n') && (*(str + i - 1) != ' '))
 		{
-			flag = 1;
-			w++;
+			count++;
 		}
 	}
-
-	return (w);
+	return (count);
 }
 /**
  * **strtow - splits a string into words
