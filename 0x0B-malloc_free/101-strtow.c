@@ -1,26 +1,27 @@
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 #include "main.h"
 
 /**
- * count_words - helper function to count the number of words in a string
- * @s: string
+ * count_string - helper function to count the number of words in a string
+ * @str: string
  *
  * Return: count of words in the string.
  */
-int count_words(char *s)
+int count_string(char *str)
 {
-int i, count;
-	for (i = 0, count = 0; s[i] != '\0'; i++)
+	int i;
+	int words = 0, len;
+
+	len = strlen(str);
+	for (i = 1; i <= len; i++)
 	{
-		if (s[i] != ' ' && s[i] != '\t' && s[i] != '\n')
-		{
-			count++;
-			while (s[i] != ' ' && s[i] != '\t' &&
-			s[i] != '\n' && s[i] != '\0')
-				i++;
-		}
+		if ((*(str + i) == ' ' || *(str + i) == '\0')
+		&& *(str + i - 1) != ' ')
+			words++;
 	}
-	return (count);
+	return (words);
 }
 /**
  * **strtow - splits a string into words
@@ -31,42 +32,41 @@ int i, count;
  */
 char **strtow(char *str)
 {
-	char **matrix, *tmp;
-	int i, k = 0, len = 0, words, c = 0, start, end;
+	int i, k = 0, l, m, len, words, each;
+	char **tab;
 
-	while (*(str + len))
-		len++;
-	words = count_words(str);
+	len = strlen(str);
+	words = count_string(str);
 	if (words == 0)
 		return (NULL);
-
-	matrix = (char **) malloc(sizeof(char *) * (words + 1));
-	if (matrix == NULL)
+	tab = malloc(sizeof(char *) * (words + 1));
+	if (tab == NULL)
 		return (NULL);
-
 	for (i = 0; i <= len; i++)
 	{
-		if (str[i] == ' ' || str[i] == '\0')
+		each = 0;
+		while (*(str + i) != ' ' && *(str + i) != '\0')
 		{
-			if (c)
-			{
-				end = i;
-				tmp = (char *) malloc(sizeof(char) * (c + 1));
-				if (tmp == NULL)
-					return (NULL);
-				while (start < end)
-					*tmp++ = str[start++];
-				*tmp = '\0';
-				matrix[k] = tmp - c;
-				k++;
-				c = 0;
-			}
+			i++;
+			each++;
 		}
-		else if (c++ == 0)
-			start = i;
+		if (each == 0)
+			continue;
+		*(tab + k) = malloc(sizeof(char) * (each + 1));
+		if (*(tab + k) == NULL)
+		{
+			for (l = 0; l < words; l++)
+				free(*(tab + l));
+			free(tab);
+			return (NULL);
+		}
+		for (m = 0; m < each; m++)
+		{
+			*(*(tab + k) + m) = *(str + (i - (each - m)));
+		}
+		*(*(tab + k) + m) = '\0';
+		k++;
 	}
-
-	matrix[k] = NULL;
-
-	return (matrix);
+	*(tab + k) = NULL;
+	return (tab);
 }
