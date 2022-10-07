@@ -1,170 +1,109 @@
 #include "main.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-
-void *_calloc(unsigned int nmemb, unsigned int size);
-int _strlen(int *s);
-char *_strrev(char *s);
-int *multiply_index(char *s1, char *s2);
-char *string_product(int *p, char *s1, char *s2);
-void errors(void);
+#include<string.h>
 
 /**
- * _calloc - memory allocation with initialization set to 0.
- * @nmemb: number of element.
- * @size: byte size
- *
- * Return: void pointer.
+ * _isdigit - checks if character is digit
+ * @c: the character to check
+ * Return: 1 if digit, 0 otherwise
  */
-void *_calloc(unsigned int nmemb, unsigned int size)
+int _isdigit(int c)
 {
-	char *p;
-	unsigned int i;
-
-	if (nmemb == 0 || size == 0)
-		return (NULL);
-	p = malloc(nmemb * size);
-	if (p == NULL)
-		return (NULL);
-	for (i = 0; i < nmemb * size; i++)
-		p[i] = 0;
-	return (p);
+  return (c >= '0' && c <= '9');
 }
 
 /**
- * multiply_index - multiply each value of the string correspondingly with the
- * other value.
- * @s1: first string of number
- * @s2: second string of number
- *
- * Return: a pointer to the array of each index multiplication.
+ * _strlen - returns the length of a string
+ * @s: the string whose length to check
+ * Return: integer length of string
  */
-int *multiply_index(char *s1, char *s2)
+int _strlen(char *s)
 {
-	int i, j, len1, len2, *p;
+	int i = 0;
 
-	len1 = strlen(s1);
-	len2 = strlen(s2);
-	s1 = _strrev(s1);
-	s2 = _strrev(s2);
-	p = _calloc(len1 + len2, sizeof(int));
-	if (p == NULL)
-		return (NULL);
-	for (i = 0; i < len1; i++)
+	while (*s++)
+		i++;
+	return (i);
+}
+
+/**
+ * big_multiply - multiply two big number strings
+ * @s1: the first big number string
+ * @s2: the second big number string
+ * Return: the product big number string
+ */
+char *big_multiply(char *s1, char *s2)
+{
+	char *r;
+	int l1, l2, a, b, c, x;
+
+	l1 = _strlen(s1);
+	l2 = _strlen(s2);
+	r = malloc(a = x = l1 + l2);
+	if (!r)
+		printf("Error\n"), exit(98);
+	while (a--)
+		r[a] = 0;
+
+	for (l1--; l1 >= 0; l1--)
 	{
-		for (j = 0; j < len2; j++)
+		if (!_isdigit(s1[l1]))
 		{
-			p[i + j] += (s1[i] - '0') * (s2[j] - '0');
+			free(r);
+			printf("Error\n"), exit(98);
 		}
+		a = s1[l1] - '0';
+		c = 0;
+
+		for (l2 = _strlen(s2) - 1; l2 >= 0; l2--)
+		{
+			if (!_isdigit(s2[l2]))
+			{
+				free(r);
+				printf("Error\n"), exit(98);
+			}
+			b = s2[l2] - '0';
+
+			c += r[l1 + l2 + 1] + (a * b);
+			r[l1 + l2 + 1] = c % 10;
+
+			c /= 10;
+		}
+		if (c)
+			r[l1 + l2 + 1] += c;
 	}
-	return (p);
+	return (r);
 }
 
 
 /**
- * _strrev - reverses a string
- * @s: string to be reversed
- * Return: the reversed string
+ * main - multiply two big number strings
+ * @argc: the number of arguments
+ * @argv: the argument vector
+ * Return: Always 0 on success.
  */
-char *_strrev(char *s)
+int main(int argc, char **argv)
 {
-	int i, j;
-	char c;
-
-	for (i = 0; s[i] != '\0'; i++)
-		;
-	i--;
-	for (j = 0; j < i; j++)
-	{
-		c = s[j];
-		s[j] = s[i];
-		s[i] = c;
-		i--;
-	}
-	return (s);
-}
-
-/**
- * string_product - converts an array of integers into a st
- * @p: array of integers
- * @s1: first string
- * @s2: second string.
- * Return: the product of the strings
- */
-char *string_product(int *p, char *s1, char *s2)
-{
-	int i, j, len, *p2;
-	char *s;
-
-	len = strlen(s1) + strlen(s2);
-	p2 = _calloc(len, sizeof(int));
-	if (p2 == NULL)
-		return (NULL);
-	for (i = 0; i < len; i++)
-	{
-		p2[i] = p[i] % 10;
-		if (i + 1 < len)
-			p[i + 1] += p[i] / 10;
-	}
-	s = _calloc(len + 1, sizeof(char));
-	if (s == NULL)
-		return (NULL);
-	for (j = 0; j < len; j++)
-		s[j] = p2[len - j - 1] + '0';
-	return (s);
-}
-
-/**
- * errors - handles errors for main
- * Return: void
- */
-void errors(void)
-{
-	printf("Error\n");
-	exit(98);
-}
-
-/**
- * main - multiplies two positive numbers
- * @argc: number of arguments
- * @argv: array of arguments
- * Return: 0
- */
-int main(int argc, char *argv[])
-{
-	int *p, i, j;
-	char *s;
+	char *r;
+	int a, c, x;
 
 	if (argc != 3)
+		printf("Error\n"), exit(98);
+
+	x = _strlen(argv[1]) + _strlen(argv[2]);
+	r = big_multiply(argv[1], argv[2]);
+	c = 0;
+	a = 0;
+	while (c < x)
 	{
-		errors();
+		if (r[c])
+			a = 1;
+		if (a)
+			_putchar(r[c] + '0');
+		c++;
 	}
-	for (i = 1; i < argc; i++)
-	{
-		for (j = 0; argv[i][j] != '\0'; j++)
-		{
-			if (isdigit(argv[i][j]) == 0)
-			{
-				errors();
-			}
-		}
-	}
-	p = multiply_index(argv[1], argv[2]);
-	s = string_product(p, argv[1], argv[2]);
-	while (s)
-	{
-		if (s[0] == '0')
-			s++;
-		else
-			break;
-	}
-	while (*s != '\0')
-	{
-		_putchar(*s);
-		s++;
-	}
+	if (!a)
+		_putchar('0');
 	_putchar('\n');
+	free(r);
 	return (0);
 }
