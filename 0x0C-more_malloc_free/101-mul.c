@@ -134,12 +134,22 @@ void errors(void)
  */
 int main(int argc, char *argv[])
 {
-	int *p;
+	int *p, i, j;
 	char *s;
 
-	if (argc != 3 || !isdigit(**(argv + 1)) || !isdigit(**(argv + 2)))
+	if (argc != 3)
 	{
 		errors();
+	}
+	for (i = 1; i < argc; i++)
+	{
+		for (j = 0; argv[i][j] != '\0'; j++)
+		{
+			if (isdigit(argv[i][j]) == 0)
+			{
+				errors();
+			}
+		}
 	}
 	p = multiply_index(argv[1], argv[2]);
 	s = string_product(p, argv[1], argv[2]);
@@ -150,7 +160,7 @@ int main(int argc, char *argv[])
 		else
 			break;
 	}
-	while (*s)
+	while (*s != '\0')
 	{
 		_putchar(*s);
 		s++;
