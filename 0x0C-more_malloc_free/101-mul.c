@@ -8,8 +8,8 @@ char *multiply_index(char *s1, char *s2);
 char *string_product(int *p, char *s1, char *s2);
 
 /**
- * multiply_index - multiplies each value of the string correspondingly with the
- * other string.
+ * multiply_index - multiplies each value of the string correspondingly with
+ * the other string.
  * @s1: first string.
  * @s2: second string.
  *
@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
 	if (argc != 3)
 	{
 		printf("Error\n");
-		exit (98);
+		exit(98);
 	}
 	for (i = 1; i < argc; i++)
 	{
