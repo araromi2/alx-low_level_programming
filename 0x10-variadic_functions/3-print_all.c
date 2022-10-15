@@ -35,8 +35,8 @@ void print_string(va_list args)
 {
 	char *str = va_arg(args, char *);
 
-/*	if (str == NULL)*/
-/*		str = "(nil)";*/
+	if (str == NULL)
+		str = "(nil)";
 	printf("%s", str);
 }
 
@@ -67,6 +67,7 @@ void print_all(const char * const format, ...)
 	};
 	int i = 0, j;
 	va_list args;
+	char *separator = "";
 
 	va_start(args, format);
 	while (format && format[i])
@@ -76,13 +77,13 @@ void print_all(const char * const format, ...)
 		{
 			if (format[i] == type[j].type)
 			{
+				printf("%s", separator);
 				type[j].func(args);
+				separator = ", ";
 				break;
 			}
 			j++;
 		}
-		if (format[i + 1] && j != 4)
-			printf(", ");
 		i++;
 	}
 	printf("\n");
