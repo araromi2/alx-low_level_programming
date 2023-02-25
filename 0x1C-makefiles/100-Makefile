@@ -2,7 +2,6 @@ CC = gcc
 SRC = $(wildcard *.c)
 NAME = school
 OBJ = $(SRC:.c=.o)
-RM = rm -f
 CFLAGS = -Wall -Werror -Wextra -pedantic
 
 all: m.h $(OBJ)
